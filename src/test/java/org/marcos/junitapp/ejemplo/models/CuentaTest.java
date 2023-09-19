@@ -1,6 +1,7 @@
-package org.marcos.junitapp.ejemplo.nodels;
+package org.marcos.junitapp.ejemplo.models;
 
 import org.junit.jupiter.api.Test;
+import org.marcos.junitapp.ejemplo.exceptions.DineroInsuficienteException;
 
 import java.math.BigDecimal;
 
@@ -54,5 +55,16 @@ class CuentaTest {
         assertNotNull(cuenta.getSaldo());
         assertEquals(1100, cuenta.getSaldo().intValue());
         assertEquals("1100.12345", cuenta.getSaldo().toPlainString());
+    }
+
+    @Test
+    void testDineroInsuficienteExceptionCuenta() {
+        Cuenta cuenta = new Cuenta("Marcos", new BigDecimal("1000.12345"));
+        Exception exception = assertThrows(DineroInsuficienteException.class, ()-> {
+           cuenta.debito(new BigDecimal(1500));
+        });
+        String actual = exception.getMessage();
+        String esperado = "Dinero Insuficiente";
+        assertEquals(esperado, actual);
     }
 }

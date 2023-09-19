@@ -1,4 +1,6 @@
-package org.marcos.junitapp.ejemplo.nodels;
+package org.marcos.junitapp.ejemplo.models;
+
+import org.marcos.junitapp.ejemplo.exceptions.DineroInsuficienteException;
 
 import java.math.BigDecimal;
 
@@ -28,8 +30,11 @@ public class Cuenta {
     }
     public void debito(BigDecimal monto){
 
-        this.saldo = this.saldo.subtract(monto);
-
+        BigDecimal nuevoSaldo = this.saldo.subtract(monto);
+        if (nuevoSaldo.compareTo(BigDecimal.ZERO) < 0){
+            throw new DineroInsuficienteException("Dinero Insuficiente");
+        }
+        this.saldo = nuevoSaldo;
     }
     public void credito(BigDecimal monto) {
         this.saldo = this.saldo.add(monto);
