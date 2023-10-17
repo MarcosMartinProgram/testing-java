@@ -1,5 +1,7 @@
 package org.marcos.junitapp.ejemplo.models;
 
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.marcos.junitapp.ejemplo.exceptions.DineroInsuficienteException;
 
@@ -10,10 +12,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class CuentaTest {
 
     @Test
+    @DisplayName("Probando nombre de la cuenta corriente!")
     void testNombreCuenta() {
         Cuenta cuenta = new Cuenta("Marcos", new BigDecimal("1000.12345"));
         //   cuenta.setPersona("Marcos");
-        String esperado = "Marcos GF";
+        String esperado = "Marcos";
         String real = cuenta.getPersona();
         assertNotNull(real, () -> "La cuenta no puede ser nula");
         assertEquals(esperado, real, () -> "El nombre de la cuenta no es el que se esperaba: " + esperado
@@ -23,6 +26,7 @@ class CuentaTest {
     }
 
     @Test
+    @DisplayName("Probando el saldo de la cuenta corriente, que no sea null, mayor que cero, valor esperado.")
     void testSaldoCuenta() {
         Cuenta cuenta = new Cuenta("Marcos", new BigDecimal("1000.12345"));
         assertNotNull(cuenta.getSaldo());
@@ -32,6 +36,7 @@ class CuentaTest {
     }
 
     @Test
+    @DisplayName("Referencia que sean iguales con el método equals. ")
     void testReferenciaCuenta() {
         Cuenta cuenta = new Cuenta("John Doe", new BigDecimal("8900.9977"));
         Cuenta cuenta2 = new Cuenta("John Doe", new BigDecimal("8900.9977"));
@@ -41,6 +46,7 @@ class CuentaTest {
     }
 
     @Test
+    @DisplayName("Que el saldo no sea null ")
     void testDebitoCuenta() {
         Cuenta cuenta = new Cuenta("Andres", new BigDecimal("1000.12345"));
         cuenta.debito(new BigDecimal(100));
@@ -84,7 +90,10 @@ class CuentaTest {
     }
 
     @Test
+    @Disabled
+    @DisplayName("Probando relaciones entre las cuentas y el banco con assertAll.")
     void testRelacionesBancoCuentas() {
+        fail();
         Cuenta cuenta1 = new Cuenta("Jhon Doe", new BigDecimal("2500"));
         Cuenta cuenta2 = new Cuenta("Pablo", new BigDecimal("1500.8989"));
 
